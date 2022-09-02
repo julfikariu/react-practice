@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
 import booklist from '../assets/booklist';
 import Booklist from './lists/Booklist';
+import NewBook from './representational/NewBook'
+import { Routes, Route, NavLink } from 'react-router-dom';
 
 class MainComponent extends Component {
-    state = {
-        books: booklist,
-        showbooks: true
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            books: booklist,
+        };
+    }
+
 
     deleteBook = index => {
         const books = [...this.state.books];
@@ -16,40 +22,30 @@ class MainComponent extends Component {
         });
     };
 
-    toggleBooks = () => {
-        this.setState({
-            showbooks: !this.state.showbooks
-        });
-    }
+
 
     render() {
 
         const books = this.state.books;
 
-        const style = {
-            border: "1px solid green",
-            padding: "5px 30px",
-            borderRadius: "6px",
-            color: "violet",
-            backgroundColor: "black",
-            margin: "10px"
-        };
-
-        let boksList = null;
-        if (this.state.showbooks) {
-            boksList = <Booklist books={books} deleteBook={this.deleteBook} />
-        }
-
-
+        let boksList = <Booklist books={books} deleteBook={this.deleteBook} />
 
 
 
         return (
             <div className="App">
+                <nav className="nav-bar">
+                    <ul>
+                        <li><NavLink to="/">Home</NavLink></li>
+                        <li><NavLink to="/new-book">New Book</NavLink></li>
+                    </ul>
+                </nav>
 
-                <h1 style={style}>Book List</h1>
-                <button onClick={this.toggleBooks}>Toggle Books</button>
-                {boksList}
+                <Routes>
+                    <Route path="/" element={boksList} />
+                    <Route path="/new-book" element={<NewBook />} />
+                </Routes>
+
 
             </div>
         );
