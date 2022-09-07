@@ -29,8 +29,6 @@ class NewBook extends Component {
 
     }
 
-
-
     render() {
         return (
             <div>
