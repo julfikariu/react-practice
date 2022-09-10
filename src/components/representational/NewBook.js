@@ -1,31 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 
 class NewBook extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            bookName: "",
-            writerName: "",
-            description: ""
-        }
 
-        this.haldelInputChange = this.haldelInputChange.bind(this);
+        this.bookName = createRef();
+        this.writerName = createRef();
+        this.description = createRef();
+
     }
 
-    haldelInputChange(event) {
-
-        const name = event.target.name;
-        const value = event.target.value;
-
-        this.setState({
-            [name]: value
-        });
-    }
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state);
+        console.log(this.bookName.current.value);
+        console.log(this.writerName.current.value);
+        console.log(this.description.current.value);
 
     }
 
@@ -37,15 +28,15 @@ class NewBook extends Component {
                 <form onSubmit={event => this.handleSubmit(event)}>
                     <label>Book Name</label>
                     <br />
-                    <input type="text" name="bookName" value={this.state.bookName} onChange={this.haldelInputChange} />
+                    <input type="text" name="bookName" ref={this.bookName} />
                     <br />
                     <label>Writer Name</label>
                     <br />
-                    <input type="text" name="writerName" value={this.state.writerName} onChange={this.haldelInputChange} />
+                    <input type="text" name="writerName" ref={this.writerName} />
                     <br />
                     <label>Description</label>
                     <br />
-                    <textarea name="description" onChange={this.haldelInputChange}>{this.state.description}</textarea>
+                    <textarea name="description" ref={this.description}></textarea>
                     <br />
                     <input type="submit" value="Submit" />
                 </form>
